@@ -2,19 +2,20 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kmplandingpage.composeapp.generated.resources.LinkedInOriginalLogo
-import kmplandingpage.composeapp.generated.resources.Res
-import kmplandingpage.composeapp.generated.resources.server_room
+import kmplandingpage.composeapp.generated.resources.*
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 
@@ -63,46 +64,97 @@ private fun topBar() {
 @Composable
 private fun MainContent(paddingValues: PaddingValues) {
 
-    LazyColumn(
-        Modifier
-            .fillMaxWidth()
-            .padding(paddingValues),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        item {
-            Box {
+    Box {
+        Image(
+            modifier = Modifier.fillMaxWidth(1f),
+            painter = painterResource(Res.drawable.server_room),
+            contentDescription = "",
+            contentScale = ContentScale.Crop
+        )
 
-                Image(
-                    modifier = Modifier.fillParentMaxHeight(1f),
-                    painter = painterResource(Res.drawable.server_room),
-                    contentDescription = "",
-                    contentScale = ContentScale.FillWidth
-                )
-
-                Text(
-                    modifier = Modifier.align(Alignment.Center),
-                    text = "SERGIO TORRES",
-                    fontSize = 128.sp,
-                    color = Color.White
-                )
-            }
-        }
-
-        item {
-            Box(modifier = Modifier.background(Color.Red).fillMaxWidth()){
-                Column {
-                    Text("TRABAJO ACTUAL -> Moviles")
+        LazyColumn(
+            Modifier
+                .fillMaxWidth()
+                .padding(paddingValues),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            item {
+                Column(
+                    modifier = Modifier.fillParentMaxHeight().fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Box(
+                        modifier = Modifier.fillMaxSize(0.5f),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Image(
+                            modifier = Modifier.clip(CircleShape),
+                            painter = painterResource(Res.drawable.profile_image),
+                            contentDescription = ""
+                        )
+                    }
+                    Text(
+                        text = "SERGIO TORRES",
+                        fontSize = 96.sp,
+                        color = Color.White,
+                        textAlign = TextAlign.Center,
+                    )
                 }
             }
-        }
 
-        item {
-            Box(modifier = Modifier.background(Color.White).fillMaxWidth()){
-                Column {
-                    Text("TRABAJO 1 -> Impresoras")
+            item {
+                Column(
+                    modifier = Modifier
+                        .fillParentMaxHeight()
+                        .fillMaxWidth()
+                        .background(Color.White),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Text("Trabajo actual")
+                    Box(
+                        modifier = Modifier.fillMaxSize(0.5f),
+                        contentAlignment = Alignment.Center
+                    )
+                    {
+                        Image(
+                            modifier = Modifier.size(128.dp),
+                            painter = painterResource(Res.drawable.android_icon),
+                            contentDescription = ""
+                        )
+                    }
                 }
             }
-        }
 
+            item {
+                Spacer(modifier = Modifier.height(1.dp).fillMaxWidth().background(Color.Black))
+            }
+
+            item {
+                Column(
+                    modifier = Modifier
+                        .fillParentMaxHeight()
+                        .fillMaxWidth()
+                        .background(Color.White),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Text("Trabajo anterior")
+                    Box(
+                        modifier = Modifier.fillMaxSize(0.5f),
+                        contentAlignment = Alignment.Center
+                    )
+                    {
+                        Image(
+                            modifier = Modifier.size(128.dp),
+                            painter = painterResource(Res.drawable.icon_printer),
+                            contentDescription = ""
+                        )
+                    }
+                }
+            }
+
+        }
     }
 }
