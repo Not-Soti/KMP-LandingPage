@@ -10,20 +10,38 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kmplandingpage.composeapp.generated.resources.*
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 
+/**
+ * TODO:
+ *  - Extract colors, strings and other values to resources
+ *  - Split each page section to its own file
+ *  - Get different padding values for multiple screen sizes?
+ *  - Different text sizes also
+ */
+
+private enum class AppColors(val argbColor : Long) {
+    background(0xff31363F),
+    topbar(0xFF222831),
+    white(0xffffffff)
+}
+
+
 @Composable
 fun App() {
     MaterialTheme {
         Scaffold(
-            containerColor = Color(0xff31363F),
+            containerColor = Color(AppColors.background.argbColor),
             topBar = { topBar() }
         ) { padding ->
             MainContent(padding)
@@ -39,7 +57,7 @@ private fun topBar() {
 
     TopAppBar(
         modifier = Modifier.shadow(4.dp),
-        colors = TopAppBarDefaults.topAppBarColors(containerColor = Color(0xFF222831)),
+        colors = TopAppBarDefaults.topAppBarColors(containerColor = Color(AppColors.topbar.argbColor)),
         title = {},
         actions = {
             Button(
@@ -66,7 +84,7 @@ private fun MainContent(paddingValues: PaddingValues) {
 
     Box {
         Image(
-            modifier = Modifier.fillMaxWidth(1f),
+            modifier = Modifier.fillMaxSize(),
             painter = painterResource(Res.drawable.server_room),
             contentDescription = "",
             contentScale = ContentScale.Crop
@@ -79,82 +97,155 @@ private fun MainContent(paddingValues: PaddingValues) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             item {
-                Column(
-                    modifier = Modifier.fillParentMaxHeight().fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Box(
-                        modifier = Modifier.fillMaxSize(0.5f),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Image(
-                            modifier = Modifier.clip(CircleShape),
-                            painter = painterResource(Res.drawable.profile_image),
-                            contentDescription = ""
-                        )
-                    }
-                    Text(
-                        text = "SERGIO TORRES",
-                        fontSize = 96.sp,
-                        color = Color.White,
-                        textAlign = TextAlign.Center,
-                    )
-                }
+                profileInfo(Modifier.fillParentMaxHeight())
             }
 
             item {
-                Column(
-                    modifier = Modifier
-                        .fillParentMaxHeight()
-                        .fillMaxWidth()
-                        .background(Color.White),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Text("Trabajo actual")
-                    Box(
-                        modifier = Modifier.fillMaxSize(0.5f),
-                        contentAlignment = Alignment.Center
-                    )
-                    {
-                        Image(
-                            modifier = Modifier.size(128.dp),
-                            painter = painterResource(Res.drawable.android_icon),
-                            contentDescription = ""
-                        )
-                    }
-                }
+                workExperience(Modifier.fillParentMaxHeight())
             }
 
             item {
-                Spacer(modifier = Modifier.height(1.dp).fillMaxWidth().background(Color.Black))
+                Spacer(Modifier.height(1.dp).fillMaxWidth().background(Color.Black))
             }
 
             item {
-                Column(
-                    modifier = Modifier
-                        .fillParentMaxHeight()
-                        .fillMaxWidth()
-                        .background(Color.White),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Text("Trabajo anterior")
-                    Box(
-                        modifier = Modifier.fillMaxSize(0.5f),
-                        contentAlignment = Alignment.Center
-                    )
-                    {
-                        Image(
-                            modifier = Modifier.size(128.dp),
-                            painter = painterResource(Res.drawable.icon_printer),
-                            contentDescription = ""
-                        )
-                    }
-                }
+                contantInfo(Modifier.fillParentMaxHeight())
             }
-
         }
+    }
+}
+
+@OptIn(ExperimentalResourceApi::class)
+@Composable
+private fun profileInfo(modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Box(
+            modifier = Modifier.fillMaxSize(0.5f),
+            contentAlignment = Alignment.Center
+        ) {
+            Image(
+                modifier = Modifier.clip(CircleShape),
+                painter = painterResource(Res.drawable.profile_image),
+                contentDescription = ""
+            )
+        }
+        Text(
+            text = "SERGIO TORRES",
+            fontSize = 96.sp,
+            color = Color.White,
+            textAlign = TextAlign.Center,
+            maxLines = 1,
+            overflow = TextOverflow.Visible
+        )
+        Text(
+            text = "Android Engineer · Backend Engineer",
+            fontSize = 72.sp,
+            color = Color.White,
+            textAlign = TextAlign.Center,
+            maxLines = 1,
+            overflow = TextOverflow.Visible
+        )
+    }
+}
+
+@OptIn(ExperimentalResourceApi::class)
+@Composable
+private fun workExperience(modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier
+        .background(Color(AppColors.white.argbColor))
+        .padding(horizontal = 20.dp, vertical = 4.dp)
+    ) {
+        experienceItem(
+            parentModifier = Modifier.weight(1f),
+            title = "2021 - 2023",
+            description = "-Firmware development in C++ for Large Format Printers.\n" +
+                    "-Database development using SQLite\n" +
+                    "-Unit testing in C++ using Gtest\n" +
+                    "-System testing using Python\n" +
+                    "\n" +
+                    "As a member of a distributed scrum team, I develop strong and scalable software backed by a wide test coverage, using control versions sistems such as GIT and SVN, and multiple technologies regarding continuous integration.",
+            image = painterResource(Res.drawable.icon_printer),
+            verticalArrangement = Arrangement.Bottom
+        )
+
+        Box(
+            modifier = Modifier.weight(1f).fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            Image(
+                painter = painterResource(Res.drawable.trayectory),
+                contentDescription = "",
+                contentScale = ContentScale.FillBounds
+            )
+        }
+
+        experienceItem(
+            parentModifier = Modifier.weight(1f),
+            title = "2023 - Today",
+            description = "As a Mobile Engineer, I specialize in developing native applications for mobile devices using various technologies. I contribute value across the entire development lifecycle, from inception and expansion to testing and deployment of projects. Additionally, I assist clients in focusing their product in the best possible way.\n" +
+                    "\n" +
+                    "- Multiplatform applications with Kotlin Multiplatform and Compose/SwiftUI\n" +
+                    "- Android applications with Java, Views (XML), Kotlin, and Jetpack Compose\n" +
+                    "iOS applications with SwiftUI\n" +
+                    "- Clean architecture, MVVM, MVI\n" +
+                    "- Development and continuous integration on Azure DevOps\n" +
+                    "- Analytics tracking using Firebase",
+            image = painterResource(Res.drawable.android_icon),
+            verticalArrangement = Arrangement.Center
+        )
+
+    }
+}
+
+@Composable
+private fun experienceItem(
+    parentModifier: Modifier,
+    title: String,
+    description: String,
+    image: Painter,
+    verticalArrangement: Arrangement.Vertical
+) {
+    Column(
+        modifier = parentModifier.fillMaxHeight(),
+        verticalArrangement = verticalArrangement,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = title,
+            fontWeight = FontWeight.Bold
+        )
+
+        Box(
+            modifier = Modifier.fillMaxSize(0.25f),
+            contentAlignment = Alignment.Center
+        )
+        {
+            Image(
+                painter = image,
+                contentDescription = ""
+            )
+        }
+
+        Text(
+            //modifier = Modifier.weight(1f),
+            text = description,
+            overflow = TextOverflow.Ellipsis
+        )
+    }
+}
+
+@Composable
+private fun contantInfo(modifier: Modifier = Modifier){
+    Column(
+        modifier = modifier.background(Color.White).fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ){
+        Text("¡Contact me!")
     }
 }
