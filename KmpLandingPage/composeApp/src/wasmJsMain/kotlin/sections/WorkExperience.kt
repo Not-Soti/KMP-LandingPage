@@ -18,12 +18,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kmplandingpage.composeapp.generated.resources.*
-import kmplandingpage.composeapp.generated.resources.Res
-import kmplandingpage.composeapp.generated.resources.android_icon
-import kmplandingpage.composeapp.generated.resources.icon_printer
-import kmplandingpage.composeapp.generated.resources.trayectory
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -43,43 +40,42 @@ fun workExperience(modifier: Modifier = Modifier, windowSize: WindowSizeClass) {
 
 @Composable
 private fun CompactContent(modifier: Modifier) {
+
+    val experienceIconSize = 48.dp
+
     Column(
         modifier = modifier
             .fillMaxWidth()
             .padding(4.dp)
     ) {
-        WorkExperienceEntry { MobileWorkExperience() }
-        WorkExperienceEntry { BackendWorkExperience() }
+        WorkExperienceEntry(iconSize = experienceIconSize) { MobileWorkExperience(iconSize = experienceIconSize) }
+        WorkExperienceEntry(iconSize = experienceIconSize) { BackendWorkExperience(iconSize = experienceIconSize) }
     }
 }
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 private fun ExpandedContent(modifier: Modifier) {
+
+    val experienceIconSize = 96.dp
+
     Row(
-        modifier = modifier.padding(horizontal = 20.dp, vertical = 4.dp)
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.Center
     ) {
-
-        BackendWorkExperience(Modifier.weight(1f))
-
-        Box(
-            modifier = Modifier.weight(1f).fillMaxSize(),
-            contentAlignment = Alignment.Center
+        Column(
+            modifier = modifier
+                .fillMaxWidth(.3f)
+                .padding(4.dp)
         ) {
-            Image(
-                painter = painterResource(Res.drawable.trayectory),
-                contentDescription = "",
-                contentScale = ContentScale.FillBounds
-            )
+            WorkExperienceEntry(iconSize = experienceIconSize) { MobileWorkExperience(iconSize = experienceIconSize) }
+            WorkExperienceEntry(iconSize = experienceIconSize) { BackendWorkExperience(iconSize = experienceIconSize) }
         }
-
-        MobileWorkExperience(Modifier.weight(1f))
-
     }
 }
 
 @Composable
 private fun WorkExperienceEntry(
+    iconSize: Dp,
     content: @Composable () -> Unit
 ) {
     Row(modifier = Modifier.height(IntrinsicSize.Max)) {
@@ -87,9 +83,9 @@ private fun WorkExperienceEntry(
             modifier = Modifier.fillMaxHeight(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Box(modifier = Modifier.height(24.dp).width(4.dp).background(Color(0xFFFF204E)))
-            Box(modifier = Modifier.size(24.dp).clip(CircleShape).background(Color(0xFFFF204E)))
-            Box(modifier = Modifier.fillMaxHeight().width(4.dp).background(Color(0xFFFF204E)) )
+            Box(modifier = Modifier.height(iconSize.div(2)).width(4.dp).background(Color(0xFFFF204E)))
+            Box(modifier = Modifier.size(iconSize.div(2)).clip(CircleShape).background(Color(0xFFFF204E)))
+            Box(modifier = Modifier.fillMaxHeight().width(4.dp).background(Color(0xFFFF204E)))
         }
 
         content()
@@ -98,23 +94,31 @@ private fun WorkExperienceEntry(
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
-private fun BackendWorkExperience(modifier: Modifier = Modifier) {
+private fun BackendWorkExperience(
+    modifier: Modifier = Modifier,
+    iconSize: Dp
+) {
     workExperienceItem(
         parentModifier = modifier,
         title = stringResource(Res.string.work_experience_1_title),
         description = stringResource(Res.string.work_experience_1_description),
         image = painterResource(Res.drawable.icon_printer),
+        iconSize = iconSize
     )
 }
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
-private fun MobileWorkExperience(modifier: Modifier = Modifier) {
+private fun MobileWorkExperience(
+    modifier: Modifier = Modifier,
+    iconSize : Dp
+) {
     workExperienceItem(
         parentModifier = modifier,
         title = stringResource(Res.string.work_experience_2_title),
         description = stringResource(Res.string.work_experience_2_description),
         image = painterResource(Res.drawable.android_icon),
+        iconSize = iconSize
     )
 }
 
@@ -124,20 +128,20 @@ private fun workExperienceItem(
     title: String,
     description: String,
     image: Painter,
+    iconSize: Dp
 ) {
     Column(
         modifier = parentModifier.fillMaxHeight().padding(vertical = 12.dp, horizontal = 12.dp),
     ) {
-
-        Box (contentAlignment = Alignment.CenterStart) {
+        Box(contentAlignment = Alignment.CenterStart) {
             Image(
-                modifier = Modifier.size(48.dp),
+                modifier = Modifier.size(iconSize),
                 painter = image,
                 contentDescription = "",
                 contentScale = ContentScale.Fit
             )
 
-            Row (
+            Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
