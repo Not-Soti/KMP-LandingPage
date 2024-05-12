@@ -29,6 +29,7 @@ fun AppTheme(
         LocalPadding provides padding
     ) {
         MaterialTheme(
+            typography = getAppTypography(),
             content = content
         )
     }
