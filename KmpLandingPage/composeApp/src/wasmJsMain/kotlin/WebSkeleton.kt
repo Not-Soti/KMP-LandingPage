@@ -17,10 +17,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import kmplandingpage.composeapp.generated.resources.*
-import kmplandingpage.composeapp.generated.resources.LinkedInOriginalLogo
-import kmplandingpage.composeapp.generated.resources.Res
-import kmplandingpage.composeapp.generated.resources.linkedin_url
-import kmplandingpage.composeapp.generated.resources.server_room
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
@@ -80,9 +76,9 @@ private fun TopAppbarContent(
     lazyColumnState: LazyListState
 ) {
     //TODO - Compact - Burguer icon and content drawer
-    Row (
+    Row(
         horizontalArrangement = Arrangement.spacedBy(32.dp)
-    ){
+    ) {
         TopbarItem("Profile", 0, lazyColumnState)
         TopbarItem("Experience", 1, lazyColumnState)
         TopbarItem("Contact", 2, lazyColumnState)
@@ -94,7 +90,7 @@ fun TopbarItem(
     title: String,
     position: Int,
     lazyColumnState: LazyListState
-){
+) {
     val scope = rememberCoroutineScope()
     Text(
         modifier = Modifier.clickable {
@@ -149,12 +145,19 @@ private fun MainContent(
             }
 
             item {
-                Spacer(
-                    Modifier
-                        .height(128.dp)
+                Box(
+                    modifier = Modifier
                         .fillMaxWidth()
-                        .background(Color(AppColors.Background.argbColor))
-                )
+                        .background(Color(AppColors.PrimaryVariant.argbColor))
+                        .padding(vertical = 8.dp),
+                    contentAlignment = Alignment.Center
+                ){
+                    Text(
+                        text = stringResource(Res.string.copyright_notice),
+                        color = Color(AppColors.OnBackground.argbColor),
+                        //maxLines = 1
+                    )
+                }
             }
         }
     }
