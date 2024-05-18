@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
+import kmplandingpage.composeapp.generated.resources.*
 import kmplandingpage.composeapp.generated.resources.LinkedInOriginalLogo
 import kmplandingpage.composeapp.generated.resources.Res
 import kmplandingpage.composeapp.generated.resources.linkedin_url
@@ -111,6 +112,11 @@ private fun MainContent(
     windowSize: WindowSizeClass,
     lazyColumnState: LazyListState
 ) {
+
+    //Needed to be loaded all time, otherwise swiping feels bad
+    val backendExperience = stringResource(Res.string.work_experience_1_description)
+    val mobileExperience = stringResource(Res.string.work_experience_2_description)
+
     Box {
         Image(
             modifier = Modifier.fillMaxSize(),
@@ -131,7 +137,11 @@ private fun MainContent(
             }
 
             item {
-                workExperience(windowSizeClass = windowSize)
+                workExperience(
+                    windowSizeClass = windowSize,
+                    backendExperienceDesc = backendExperience,
+                    mobileExperienceDesc = mobileExperience
+                )
             }
 
             item {

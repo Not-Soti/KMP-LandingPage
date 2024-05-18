@@ -26,20 +26,24 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun workExperience(modifier: Modifier = Modifier, windowSizeClass: WindowSizeClass) {
-
+fun workExperience(
+    modifier: Modifier = Modifier,
+    windowSizeClass: WindowSizeClass,
+    backendExperienceDesc: String,
+    mobileExperienceDesc: String
+) {
     Column(Modifier.background(Color(AppColors.Background.argbColor))) {
         if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact) {
-            CompactContent(modifier)
+            CompactContent(modifier, backendExperienceDesc, mobileExperienceDesc)
         } else {
-            ExpandedContent(modifier)
+            ExpandedContent(modifier, backendExperienceDesc, mobileExperienceDesc)
         }
     }
 
 }
 
 @Composable
-private fun CompactContent(modifier: Modifier) {
+private fun CompactContent(modifier: Modifier, backendExperienceDesc : String, mobileExperienceDesc : String) {
 
     val experienceIconSize = 48.dp
 
@@ -48,13 +52,13 @@ private fun CompactContent(modifier: Modifier) {
             .fillMaxWidth()
             .padding(4.dp)
     ) {
-        WorkExperienceEntry(iconSize = experienceIconSize) { MobileWorkExperience(iconSize = experienceIconSize) }
-        WorkExperienceEntry(iconSize = experienceIconSize) { BackendWorkExperience(iconSize = experienceIconSize) }
+        WorkExperienceEntry(iconSize = experienceIconSize) { MobileWorkExperience(iconSize = experienceIconSize, desc = mobileExperienceDesc) }
+        WorkExperienceEntry(iconSize = experienceIconSize) { BackendWorkExperience(iconSize = experienceIconSize, desc = backendExperienceDesc) }
     }
 }
 
 @Composable
-private fun ExpandedContent(modifier: Modifier) {
+private fun ExpandedContent(modifier: Modifier, backendExperienceDesc : String, mobileExperienceDesc : String) {
 
     val experienceIconSize = 96.dp
 
@@ -67,8 +71,8 @@ private fun ExpandedContent(modifier: Modifier) {
                 .fillMaxWidth(.5f)
                 .padding(4.dp)
         ) {
-            WorkExperienceEntry(iconSize = experienceIconSize) { MobileWorkExperience(iconSize = experienceIconSize) }
-            WorkExperienceEntry(iconSize = experienceIconSize) { BackendWorkExperience(iconSize = experienceIconSize) }
+            WorkExperienceEntry(iconSize = experienceIconSize) { MobileWorkExperience(iconSize = experienceIconSize, desc = mobileExperienceDesc) }
+            WorkExperienceEntry(iconSize = experienceIconSize) { BackendWorkExperience(iconSize = experienceIconSize, desc = backendExperienceDesc) }
         }
     }
 }
@@ -96,12 +100,13 @@ private fun WorkExperienceEntry(
 @Composable
 private fun BackendWorkExperience(
     modifier: Modifier = Modifier,
-    iconSize: Dp
+    iconSize: Dp,
+    desc: String
 ) {
     workExperienceItem(
         parentModifier = modifier,
         title = stringResource(Res.string.work_experience_1_title),
-        description = stringResource(Res.string.work_experience_1_description),
+        description = desc,//stringResource(Res.string.work_experience_1_description),
         image = painterResource(Res.drawable.icon_printer),
         iconSize = iconSize
     )
@@ -111,12 +116,13 @@ private fun BackendWorkExperience(
 @Composable
 private fun MobileWorkExperience(
     modifier: Modifier = Modifier,
-    iconSize : Dp
+    iconSize : Dp,
+    desc: String
 ) {
     workExperienceItem(
         parentModifier = modifier,
         title = stringResource(Res.string.work_experience_2_title),
-        description = stringResource(Res.string.work_experience_2_description),
+        description = desc, //stringResource(Res.string.work_experience_2_description),
         image = painterResource(Res.drawable.android_icon),
         iconSize = iconSize
     )
