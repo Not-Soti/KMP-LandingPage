@@ -1,4 +1,5 @@
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -130,11 +131,20 @@ private fun MainContent(
             }
 
             item {
-                workExperience(windowSize = windowSize)
+                workExperience(windowSizeClass = windowSize)
             }
 
             item {
-                contantInfo(Modifier.fillParentMaxHeight())
+                contantInfo(windowSizeClass = windowSize)
+            }
+
+            item {
+                Spacer(
+                    Modifier
+                        .height(128.dp)
+                        .fillMaxWidth()
+                        .background(Color(AppColors.Background.argbColor))
+                )
             }
         }
     }

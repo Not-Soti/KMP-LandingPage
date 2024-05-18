@@ -26,10 +26,10 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun workExperience(modifier: Modifier = Modifier, windowSize: WindowSizeClass) {
+fun workExperience(modifier: Modifier = Modifier, windowSizeClass: WindowSizeClass) {
 
     Column(Modifier.background(Color(AppColors.Background.argbColor))) {
-        if (windowSize.widthSizeClass == WindowWidthSizeClass.Compact) {
+        if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact) {
             CompactContent(modifier)
         } else {
             ExpandedContent(modifier)
@@ -64,7 +64,7 @@ private fun ExpandedContent(modifier: Modifier) {
     ) {
         Column(
             modifier = modifier
-                .fillMaxWidth(.3f)
+                .fillMaxWidth(.5f)
                 .padding(4.dp)
         ) {
             WorkExperienceEntry(iconSize = experienceIconSize) { MobileWorkExperience(iconSize = experienceIconSize) }
