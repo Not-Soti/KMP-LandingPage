@@ -11,22 +11,26 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import kmplandingpage.composeapp.generated.resources.Res
-import kmplandingpage.composeapp.generated.resources.profile_image
-import org.jetbrains.compose.resources.ExperimentalResourceApi
+import androidx.compose.ui.unit.dp
+import kmplandingpage.composeapp.generated.resources.*
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 import style.AppTheme
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun profileInfo(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    isCompact: Boolean
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+
+        val androidSubtitle = stringResource(Res.string.profile_android_engineer)
+        val backendSubtitle = stringResource(Res.string.profile_backend_engineer)
+
         Box(
             modifier = Modifier.fillMaxSize(0.5f),
             contentAlignment = Alignment.Center
@@ -38,20 +42,44 @@ fun profileInfo(
             )
         }
         Text(
-            text = "SERGIO TORRES",
+            text = stringResource(Res.string.profile_my_name).uppercase(),
             fontSize = AppTheme.textSize.title,
             color = Color.White,
             textAlign = TextAlign.Center,
             maxLines = 1,
             overflow = TextOverflow.Visible,
         )
-        Text(
-            text = "Android Engineer · Backend Engineer",
-            fontSize = AppTheme.textSize.subtitle,
-            color = Color.White,
-            textAlign = TextAlign.Center,
-            maxLines = 1,
-            overflow = TextOverflow.Visible
-        )
+
+        if (isCompact) {
+            Spacer(Modifier.height(24.dp))
+            Text(
+                text = androidSubtitle,
+                fontSize = AppTheme.textSize.subtitle,
+                color = Color.White,
+                textAlign = TextAlign.Center,
+                maxLines = 1,
+                overflow = TextOverflow.Visible
+            )
+            Text(
+                text = backendSubtitle,
+                fontSize = AppTheme.textSize.subtitle,
+                color = Color.White,
+                textAlign = TextAlign.Center,
+                maxLines = 1,
+                overflow = TextOverflow.Visible
+            )
+
+        } else {
+            Text(
+                text =  "$androidSubtitle · $backendSubtitle",
+                fontSize = AppTheme.textSize.subtitle,
+                color = Color.White,
+                textAlign = TextAlign.Center,
+                maxLines = 1,
+                overflow = TextOverflow.Visible
+            )
+        }
+
+
     }
 }

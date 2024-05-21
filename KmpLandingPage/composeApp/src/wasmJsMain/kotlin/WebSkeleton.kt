@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.*
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -15,6 +16,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import kmplandingpage.composeapp.generated.resources.*
 import kotlinx.coroutines.launch
@@ -39,7 +41,7 @@ fun WebSkeleton(windowSize: WindowSizeClass) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalResourceApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun topBar(
     lazyColumnState: LazyListState
@@ -64,7 +66,7 @@ private fun topBar(
                 Image(
                     modifier = Modifier.size(36.dp),
                     painter = painterResource(Res.drawable.LinkedInOriginalLogo),
-                    contentDescription = "TODO"
+                    contentDescription = ""
                 )
             }
         },
@@ -75,13 +77,12 @@ private fun topBar(
 private fun TopAppbarContent(
     lazyColumnState: LazyListState
 ) {
-    //TODO - Compact - Burguer icon and content drawer
     Row(
         horizontalArrangement = Arrangement.spacedBy(32.dp)
     ) {
-        TopbarItem("Profile", 0, lazyColumnState)
-        TopbarItem("Experience", 1, lazyColumnState)
-        TopbarItem("Contact", 2, lazyColumnState)
+        TopbarItem(stringResource(Res.string.profile_section_name), 0, lazyColumnState)
+        TopbarItem(stringResource(Res.string.work_experience_section_name), 1, lazyColumnState)
+        TopbarItem(stringResource(Res.string.contact_section_name), 2, lazyColumnState)
     }
 }
 
@@ -129,7 +130,10 @@ private fun MainContent(
             state = lazyColumnState
         ) {
             item {
-                profileInfo(Modifier.fillParentMaxHeight())
+                profileInfo(
+                    modifier = Modifier.fillParentMaxHeight(),
+                    isCompact = windowSize.widthSizeClass == WindowWidthSizeClass.Compact
+                )
             }
 
             item {
@@ -155,7 +159,7 @@ private fun MainContent(
                     Text(
                         text = stringResource(Res.string.copyright_notice),
                         color = Color(AppColors.OnBackground.argbColor),
-                        //maxLines = 1
+                        textAlign = TextAlign.Center
                     )
                 }
             }

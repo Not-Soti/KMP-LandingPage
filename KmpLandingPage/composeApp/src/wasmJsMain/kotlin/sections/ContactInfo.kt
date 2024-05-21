@@ -18,17 +18,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import kmplandingpage.composeapp.generated.resources.*
+import kmplandingpage.composeapp.generated.resources.Res
+import kmplandingpage.composeapp.generated.resources.contact_button_title
+import kmplandingpage.composeapp.generated.resources.contact_input_name
+import kmplandingpage.composeapp.generated.resources.contact_section_title
 import kotlinx.browser.window
+import org.jetbrains.compose.resources.stringResource
 import org.w3c.dom.url.URL
 import style.AppTheme
 
 @Composable
 fun contantInfo(windowSizeClass: WindowSizeClass) {
 
-    var nameText = remember { mutableStateOf("") }
-    var emailText = remember { mutableStateOf("") }
-    var subjectText = remember { mutableStateOf("") }
-    var bodyText = remember { mutableStateOf("") }
+    val nameText = remember { mutableStateOf("") }
+    val emailText = remember { mutableStateOf("") }
+    val subjectText = remember { mutableStateOf("") }
+    val bodyText = remember { mutableStateOf("") }
 
     Box(
         modifier = Modifier.background(Color(AppColors.Background.argbColor)).fillMaxSize(),
@@ -90,7 +96,7 @@ private fun ExpandedContent(
     ) {
 
         Text(
-            text = "¿Hablamos?",
+            text = stringResource(Res.string.contact_section_title),
             fontSize = AppTheme.textSize.subtitle,
             color = Color(AppColors.OnPrimary.argbColor)
         )
@@ -101,7 +107,7 @@ private fun ExpandedContent(
             TextField(
                 modifier = Modifier.weight(1f),
                 value = name.value,
-                label = { Text("Nombre") },
+                label = { Text(stringResource(Res.string.contact_input_name)) },
                 maxLines = 1,
                 onValueChange = {
                     name.value = it
@@ -111,7 +117,7 @@ private fun ExpandedContent(
             TextField(
                 modifier = Modifier.weight(1f),
                 value = email.value,
-                label = { Text("Correo") },
+                label = { Text(stringResource(Res.string.contact_input_email)) },
                 maxLines = 1,
                 onValueChange = { email.value = it }
             )
@@ -120,7 +126,7 @@ private fun ExpandedContent(
         TextField(
             modifier = Modifier.fillMaxWidth(),
             value = subject.value,
-            label = { Text("Asunto") },
+            label = { Text(stringResource(Res.string.contact_input_subject)) },
             maxLines = 1,
             onValueChange = { subject.value = it }
         )
@@ -128,7 +134,7 @@ private fun ExpandedContent(
         TextField(
             modifier = Modifier.fillMaxWidth().height(480.dp),
             value = message.value,
-            label = { Text("Mensaje") },
+            label = { Text(stringResource(Res.string.contact_input_body)) },
             onValueChange = { message.value = it }
         )
     }
@@ -149,7 +155,7 @@ private fun CompactContent(
     ) {
 
         Text(
-            text = "Let's talk!",
+            text = stringResource(Res.string.contact_section_title),
             fontSize = AppTheme.textSize.title,
             color = Color(AppColors.OnPrimary.argbColor)
         )
@@ -159,7 +165,7 @@ private fun CompactContent(
         TextField(
             modifier = Modifier.fillMaxWidth(),
             value = name.value,
-            label = { Text("Name") },
+            label = { Text(stringResource(Res.string.contact_input_name)) },
             maxLines = 1,
             onValueChange = {
                 name.value = it
@@ -172,7 +178,7 @@ private fun CompactContent(
 
             modifier = Modifier.fillMaxWidth(),
             value = email.value,
-            label = { Text("Email") },
+            label = { Text(stringResource(Res.string.contact_input_email)) },
             maxLines = 1,
             onValueChange = { email.value = it }
         )
@@ -180,7 +186,7 @@ private fun CompactContent(
         TextField(
             modifier = Modifier.fillMaxWidth(),
             value = subject.value,
-            label = { Text("Subject") },
+            label = { Text(stringResource(Res.string.contact_input_subject)) },
             maxLines = 1,
             onValueChange = { subject.value = it }
         )
@@ -188,7 +194,7 @@ private fun CompactContent(
         TextField(
             modifier = Modifier.fillMaxWidth().height(360.dp),
             value = message.value,
-            label = { Text("Message") },
+            label = { Text(stringResource(Res.string.contact_input_body)) },
             onValueChange = { message.value = it }
         )
     }
@@ -213,8 +219,10 @@ private fun SendEmailButton(
         "subject=$name: $subject" +
         "&body=$message"
 
+    val horizontalPadding = if (isCompact) 8.dp else 0.dp
+
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().padding(horizontal = horizontalPadding),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Button(
@@ -226,7 +234,7 @@ private fun SendEmailButton(
                 )
             }
         ) {
-            Text("Send")
+            Text(stringResource(Res.string.contact_button_title))
         }
     }
 }

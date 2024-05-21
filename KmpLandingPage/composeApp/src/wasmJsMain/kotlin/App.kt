@@ -6,9 +6,10 @@ import style.AppTheme
 /**
  * TODO:
  *  - Extract colors, strings and other values to resources
- *  - Split each page section to its own file
  *  - Get different padding values for multiple screen sizes?
- *  - Different text sizes also
+ *  - Multiple languaje and autodetection
+ *  - Añadir sección de "Se ofrecen servicios de back + mobile patatin patatan"
+ *  - Compact - Burguer icon and content drawer
  */
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)

@@ -10,8 +10,8 @@ data class TextSize(
 )
 
 val CompactTextSize = TextSize(
-    title = 24.sp,
-    subtitle = 16.sp
+    title = 48.sp,
+    subtitle = 36.sp
 )
 
 val ExpandedTextSize = TextSize(
