@@ -1,10 +1,10 @@
 package sections
 
 import AppColors
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
@@ -19,10 +19,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import kmplandingpage.composeapp.generated.resources.*
-import kmplandingpage.composeapp.generated.resources.Res
-import kmplandingpage.composeapp.generated.resources.contact_button_title
-import kmplandingpage.composeapp.generated.resources.contact_input_name
-import kmplandingpage.composeapp.generated.resources.contact_section_title
 import kotlinx.browser.window
 import org.jetbrains.compose.resources.stringResource
 import org.w3c.dom.url.URL
@@ -37,7 +33,7 @@ fun contantInfo(windowSizeClass: WindowSizeClass) {
     val bodyText = remember { mutableStateOf("") }
 
     Box(
-        modifier = Modifier.background(Color(AppColors.Background.argbColor)).fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact) {
@@ -216,8 +212,8 @@ private fun SendEmailButton(
 
     val mailtoUrl =
         "mailto:example@gmail.com?" +
-        "subject=$name: $subject" +
-        "&body=$message"
+                "subject=$name: $subject" +
+                "&body=$message"
 
     val horizontalPadding = if (isCompact) 8.dp else 0.dp
 
@@ -227,6 +223,10 @@ private fun SendEmailButton(
     ) {
         Button(
             modifier = Modifier.fillMaxWidth(buttonSizeRatio),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(AppColors.OnPrimary.argbColor),
+                contentColor = Color(AppColors.OnBackground.argbColor)
+            ),
             onClick = {
                 window.open(
                     URL(mailtoUrl).href,
@@ -234,7 +234,7 @@ private fun SendEmailButton(
                 )
             }
         ) {
-            Text(stringResource(Res.string.contact_button_title))
+            Text(stringResource(Res.string.contact_button_title).uppercase())
         }
     }
 }

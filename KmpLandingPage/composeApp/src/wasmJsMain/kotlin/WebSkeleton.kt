@@ -13,6 +13,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalUriHandler
@@ -20,7 +21,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import kmplandingpage.composeapp.generated.resources.*
 import kotlinx.coroutines.launch
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import sections.contantInfo
@@ -34,7 +34,6 @@ fun WebSkeleton(windowSize: WindowSizeClass) {
     val lazyColumnState = rememberLazyListState()
 
     Scaffold(
-        containerColor = Color(AppColors.Background.argbColor),
         topBar = { topBar(lazyColumnState) }
     ) { padding ->
         MainContent(padding, windowSize, lazyColumnState)
@@ -102,7 +101,6 @@ fun TopbarItem(
     )
 }
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 private fun MainContent(
     paddingValues: PaddingValues,
@@ -137,30 +135,40 @@ private fun MainContent(
             }
 
             item {
-                workExperience(
-                    windowSizeClass = windowSize,
-                    backendExperienceDesc = backendExperience,
-                    mobileExperienceDesc = mobileExperience
-                )
-            }
-
-            item {
-                contantInfo(windowSizeClass = windowSize)
-            }
-
-            item {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(Color(AppColors.PrimaryVariant.argbColor))
-                        .padding(vertical = 8.dp),
-                    contentAlignment = Alignment.Center
-                ){
-                    Text(
-                        text = stringResource(Res.string.copyright_notice),
-                        color = Color(AppColors.OnBackground.argbColor),
-                        textAlign = TextAlign.Center
+                Column(
+                    modifier = Modifier.background(
+                        brush = Brush.verticalGradient(
+                            colors = listOf(
+                                Color(AppColors.BackgroundGradient1.argbColor),
+                                Color(AppColors.BackgroundGradient2.argbColor)
+                            )
+                        )
+                    ),
+                ) {
+                    workExperience(
+                        windowSizeClass = windowSize,
+                        backendExperienceDesc = backendExperience,
+                        mobileExperienceDesc = mobileExperience,
                     )
+
+                    contantInfo(
+                        windowSizeClass = windowSize,
+                    )
+
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(Color(AppColors.PrimaryVariant.argbColor))
+                            .padding(vertical = 8.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = stringResource(Res.string.copyright_notice),
+                            color = Color(AppColors.OnBackground.argbColor),
+                            textAlign = TextAlign.Center
+                        )
+                    }
+
                 }
             }
         }

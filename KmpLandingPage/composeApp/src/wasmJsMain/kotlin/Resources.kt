@@ -9,5 +9,7 @@ enum class AppColors(val argbColor : Long) {
     Background(0xff31363F),
     OnPrimary(0xFF76ABAE),
     //OnSecondary()
-    OnBackground(0xffeeeeee)
+    OnBackground(0xffeeeeee),
+    BackgroundGradient1(0xFF404f68),
+    BackgroundGradient2(0xFF1a1a1a)
 }

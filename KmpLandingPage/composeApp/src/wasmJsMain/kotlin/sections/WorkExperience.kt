@@ -27,38 +27,47 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun workExperience(
-    modifier: Modifier = Modifier,
     windowSizeClass: WindowSizeClass,
     backendExperienceDesc: String,
     mobileExperienceDesc: String
 ) {
-    Column(Modifier.background(Color(AppColors.Background.argbColor))) {
+    Column{
         if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact) {
-            CompactContent(modifier, backendExperienceDesc, mobileExperienceDesc)
+            CompactContent(backendExperienceDesc, mobileExperienceDesc)
         } else {
-            ExpandedContent(modifier, backendExperienceDesc, mobileExperienceDesc)
+            ExpandedContent(backendExperienceDesc, mobileExperienceDesc)
         }
     }
 
 }
 
 @Composable
-private fun CompactContent(modifier: Modifier, backendExperienceDesc : String, mobileExperienceDesc : String) {
+private fun CompactContent( backendExperienceDesc: String, mobileExperienceDesc: String) {
 
     val experienceIconSize = 48.dp
 
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxWidth()
             .padding(4.dp)
     ) {
-        WorkExperienceEntry(iconSize = experienceIconSize) { MobileWorkExperience(iconSize = experienceIconSize, desc = mobileExperienceDesc) }
-        WorkExperienceEntry(iconSize = experienceIconSize) { BackendWorkExperience(iconSize = experienceIconSize, desc = backendExperienceDesc) }
+        WorkExperienceEntry(iconSize = experienceIconSize) {
+            MobileWorkExperience(
+                iconSize = experienceIconSize,
+                desc = mobileExperienceDesc
+            )
+        }
+        WorkExperienceEntry(iconSize = experienceIconSize) {
+            BackendWorkExperience(
+                iconSize = experienceIconSize,
+                desc = backendExperienceDesc
+            )
+        }
     }
 }
 
 @Composable
-private fun ExpandedContent(modifier: Modifier, backendExperienceDesc : String, mobileExperienceDesc : String) {
+private fun ExpandedContent(backendExperienceDesc: String, mobileExperienceDesc: String) {
 
     val experienceIconSize = 96.dp
 
@@ -67,12 +76,22 @@ private fun ExpandedContent(modifier: Modifier, backendExperienceDesc : String, 
         horizontalArrangement = Arrangement.Center
     ) {
         Column(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth(.5f)
                 .padding(4.dp)
         ) {
-            WorkExperienceEntry(iconSize = experienceIconSize) { MobileWorkExperience(iconSize = experienceIconSize, desc = mobileExperienceDesc) }
-            WorkExperienceEntry(iconSize = experienceIconSize) { BackendWorkExperience(iconSize = experienceIconSize, desc = backendExperienceDesc) }
+            WorkExperienceEntry(iconSize = experienceIconSize) {
+                MobileWorkExperience(
+                    iconSize = experienceIconSize,
+                    desc = mobileExperienceDesc
+                )
+            }
+            WorkExperienceEntry(iconSize = experienceIconSize) {
+                BackendWorkExperience(
+                    iconSize = experienceIconSize,
+                    desc = backendExperienceDesc
+                )
+            }
         }
     }
 }
@@ -112,11 +131,10 @@ private fun BackendWorkExperience(
     )
 }
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 private fun MobileWorkExperience(
     modifier: Modifier = Modifier,
-    iconSize : Dp,
+    iconSize: Dp,
     desc: String
 ) {
     workExperienceItem(
