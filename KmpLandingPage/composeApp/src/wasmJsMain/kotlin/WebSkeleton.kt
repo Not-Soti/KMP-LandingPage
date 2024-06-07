@@ -25,6 +25,7 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import sections.contantInfo
 import sections.profileInfo
+import sections.techSkills
 import sections.workExperience
 
 
@@ -145,6 +146,11 @@ private fun MainContent(
                         )
                     ),
                 ) {
+
+                    techSkills(
+                        windowSizeClass = windowSize
+                    )
+
                     workExperience(
                         windowSizeClass = windowSize,
                         backendExperienceDesc = backendExperience,

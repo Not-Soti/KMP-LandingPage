@@ -5,6 +5,18 @@
     <string name="linkedin_url">https://www.linkedin.com/in/sergio-torres-montero-a31735207/</string>
     <string name="copyright_notice"> Copyright © 2024. Sergio Torres Montero. All rights reserved.</string>
 
+    <!--  Tech experience  -->
+    <string name="tech_exp_cpp">C++</string>
+    <string name="tech_exp_android">Android</string>
+    <string name="tech_exp_azuredevops">Azure DevOps</string>
+    <string name="tech_exp_compose">Jetpack Compose</string>
+    <string name="tech_exp_git">Git</string>
+    <string name="tech_exp_java">Java</string>
+    <string name="tech_exp_kotlin">Kotlin</string>
+    <string name="tech_exp_sqlite">SQLite</string>
+    <string name="tech_exp_swiftui">SwiftUi</string>
+
+
     <!--  ProfileInfo  -->
     <string name="profile_section_name">Profile</string>
     <string name="profile_my_name">Sergio Torres</string>
