@@ -1,6 +1,4 @@
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
@@ -16,6 +14,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -29,12 +28,18 @@ import sections.techSkills
 import sections.workExperience
 
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun WebSkeleton(windowSize: WindowSizeClass) {
 
+    val keyboardController = LocalSoftwareKeyboardController.current
     val lazyColumnState = rememberLazyListState()
 
     Scaffold(
+        modifier = Modifier.onClick {
+            // Web on mobile devices dont clear the focus from textfields correctly
+            keyboardController?.hide()
+        },
         topBar = { topBar(lazyColumnState) }
     ) { padding ->
         MainContent(padding, windowSize, lazyColumnState)
