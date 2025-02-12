@@ -45,15 +45,15 @@ private fun compactContent() {
         horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        item(Res.drawable.tech_kotlin, Res.string.tech_exp_kotlin, compactIconSize)
-        item(Res.drawable.tech_cpp, Res.string.tech_exp_cpp, compactIconSize)
-        item(Res.drawable.tech_android, Res.string.tech_exp_android, compactIconSize)
-        item(Res.drawable.tech_java, Res.string.tech_exp_java, compactIconSize)
-        item(Res.drawable.tech_compose, Res.string.tech_exp_compose, compactIconSize)
-        item(Res.drawable.tech_swiftui, Res.string.tech_exp_swiftui, compactIconSize)
-        item(Res.drawable.tech_sqlite, Res.string.tech_exp_sqlite, compactIconSize)
-        item(Res.drawable.tech_git, Res.string.tech_exp_git, compactIconSize)
-        item(Res.drawable.tech_azuredevops, Res.string.tech_exp_azuredevops, compactIconSize)
+        skill(Res.drawable.tech_kotlin, Res.string.tech_exp_kotlin, compactIconSize)
+        skill(Res.drawable.tech_cpp, Res.string.tech_exp_cpp, compactIconSize)
+        skill(Res.drawable.tech_android, Res.string.tech_exp_android, compactIconSize)
+        skill(Res.drawable.tech_java, Res.string.tech_exp_java, compactIconSize)
+        skill(Res.drawable.tech_compose, Res.string.tech_exp_compose, compactIconSize)
+        skill(Res.drawable.tech_swiftui, Res.string.tech_exp_swiftui, compactIconSize)
+        skill(Res.drawable.tech_sqlite, Res.string.tech_exp_sqlite, compactIconSize)
+        skill(Res.drawable.tech_git, Res.string.tech_exp_git, compactIconSize)
+        skill(Res.drawable.tech_azuredevops, Res.string.tech_exp_azuredevops, compactIconSize)
     }
 }
 
@@ -68,20 +68,20 @@ private fun expandedContent() {
             .padding(vertical = 8.dp),
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
-        item(Res.drawable.tech_kotlin, Res.string.tech_exp_kotlin, exandedIconSize)
-        item(Res.drawable.tech_cpp, Res.string.tech_exp_cpp, exandedIconSize)
-        item(Res.drawable.tech_android, Res.string.tech_exp_android, exandedIconSize)
-        item(Res.drawable.tech_java, Res.string.tech_exp_java, exandedIconSize)
-        item(Res.drawable.tech_compose, Res.string.tech_exp_compose, exandedIconSize)
-        item(Res.drawable.tech_swiftui, Res.string.tech_exp_swiftui, exandedIconSize)
-        item(Res.drawable.tech_sqlite, Res.string.tech_exp_sqlite, exandedIconSize)
-        item(Res.drawable.tech_git, Res.string.tech_exp_git, exandedIconSize)
-        item(Res.drawable.tech_azuredevops, Res.string.tech_exp_azuredevops, exandedIconSize)
+        skill(Res.drawable.tech_kotlin, Res.string.tech_exp_kotlin, exandedIconSize)
+        skill(Res.drawable.tech_cpp, Res.string.tech_exp_cpp, exandedIconSize)
+        skill(Res.drawable.tech_android, Res.string.tech_exp_android, exandedIconSize)
+        skill(Res.drawable.tech_java, Res.string.tech_exp_java, exandedIconSize)
+        skill(Res.drawable.tech_compose, Res.string.tech_exp_compose, exandedIconSize)
+        skill(Res.drawable.tech_swiftui, Res.string.tech_exp_swiftui, exandedIconSize)
+        skill(Res.drawable.tech_sqlite, Res.string.tech_exp_sqlite, exandedIconSize)
+        skill(Res.drawable.tech_git, Res.string.tech_exp_git, exandedIconSize)
+        skill(Res.drawable.tech_azuredevops, Res.string.tech_exp_azuredevops, exandedIconSize)
     }
 }
 
 @Composable
-private fun item(
+private fun skill(
     imageRes: DrawableResource,
     titleRes: StringResource,
     iconSize: Dp
@@ -90,11 +90,13 @@ private fun item(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Image(
-            painter = painterResource(imageRes),
-            contentDescription = title,
-            modifier = Modifier.size(iconSize)
-        )
+        Box(modifier = Modifier.size(iconSize)) {
+            Image(
+                painter = painterResource(imageRes),
+                contentDescription = title,
+                modifier = Modifier.size(iconSize)
+            )
+        }
         Text(
             text = title,
             color = Color(AppColors.OnBackground.argbColor),
