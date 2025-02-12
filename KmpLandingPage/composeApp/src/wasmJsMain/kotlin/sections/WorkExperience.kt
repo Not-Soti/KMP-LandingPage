@@ -42,7 +42,7 @@ fun workExperience(
 }
 
 @Composable
-private fun CompactContent( backendExperienceDesc: String, mobileExperienceDesc: String) {
+private fun CompactContent(backendExperienceDesc: String, mobileExperienceDesc: String) {
 
     val experienceIconSize = 48.dp
 

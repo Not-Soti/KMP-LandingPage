@@ -114,7 +114,7 @@ private fun MainContent(
     lazyColumnState: LazyListState
 ) {
 
-    //Needed to be loaded all time, otherwise swiping feels bad
+    //Needed to be loaded all time, otherwise scrolling feels wrong
     val backendExperience = stringResource(Res.string.work_experience_1_description)
     val mobileExperience = stringResource(Res.string.work_experience_2_description)
 
@@ -179,7 +179,6 @@ private fun MainContent(
                             textAlign = TextAlign.Center
                         )
                     }
-
                 }
             }
         }
